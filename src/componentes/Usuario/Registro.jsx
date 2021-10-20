@@ -1,6 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Redirect } from 'react-router'
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import "../../firebase"
+
+
+
 
 export default function Registro() {
   return (

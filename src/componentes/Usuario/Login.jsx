@@ -1,6 +1,7 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Redirect } from 'react-router'
+import React from "react";
+import { Link } from "react-router-dom";
+import { Redirect } from "react-router";
+import { getAuth } from "firebase/auth";
 
 export default function Login() {
   return (
@@ -41,5 +42,5 @@ export default function Login() {
         </div>
       </div>
     </div>
-  )
+  );
 }
