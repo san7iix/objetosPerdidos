@@ -6,6 +6,7 @@ import Login from './componentes/Usuario/Login'
 import Registro from './componentes/Usuario/Registro'
 import Perfil from './componentes/Usuario/Perfil'
 import ListaObjetos from './componentes/Objetos/ListaObjetos'
+import PrivateRoute from './componentes/Middlewares/RutaPrivada'
 
 function App() {
   return (
@@ -16,9 +17,9 @@ function App() {
           <Route exact path="/objetos">
             <ListaObjetos />
           </Route>
-          <Route exact path="/perfil">
+          <PrivateRoute exact path="/perfil">
             <Perfil />
-          </Route>
+          </PrivateRoute>
           <Route exact path="/login">
             <Login />
           </Route>
