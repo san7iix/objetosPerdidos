@@ -1,42 +1,9 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Redirect, useHistory } from 'react-router'
-import db from '../../firebase'
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
-import { USER_KEY } from '../../var.config'
+import React from "react";
+import { Link } from "react-router-dom";
+import { Redirect } from "react-router";
+import { getAuth } from "firebase/auth";
 
 export default function Login() {
-  const [datos, setdatos] = useState({
-    email: '',
-    password: '',
-  })
-
-  const auth = getAuth()
-  let history = useHistory()
-
-  const login = () => {
-    signInWithEmailAndPassword(auth, datos.email, datos.password)
-      .then((userCredential) => {
-        const { user } = userCredential
-        if (user) {
-          history.push('/objetos')
-          localStorage.setItem(USER_KEY, JSON.stringify(user))
-        }
-      })
-      .catch((err) => {
-        console.error(err)
-      })
-  }
-
-  const handleChange = (e) => {
-    const { id, value } = e.target
-
-    setdatos((prevState) => ({
-      ...prevState,
-      [id]: value,
-    }))
-  }
-
   return (
     <div className="min-h-screen bg-gray-100 text-gray-800 antialiased py-6 flex flex-col justify-center sm:py-3">
       <div className="relative py-3 sm:max-w-xl sm:mx-auto w-2/3">
@@ -51,8 +18,6 @@ export default function Login() {
               type="text"
               placeholder="Email"
               className="border w-full h-5 px-3 py-5 mt-2 hover:outline-none rounded-md focus:ring-indigo-400"
-              id="email"
-              onChange={(e) => handleChange(e)}
             />
             <label htmlFor="" className="block font-semibold">
               Contraseña
@@ -61,14 +26,9 @@ export default function Login() {
               type="password"
               placeholder="Contraseña"
               className="border w-full h-5 px-3 py-5 mt-2 hover:outline-none rounded-md focus:ring-indigo-400"
-              id="password"
-              onChange={(e) => handleChange(e)}
             />
             <div className="flex justify-between items-baseline">
-              <button
-                className="mt-4 bg-primary text-white py-2 px-6 rounded-md hover:bg-primary-400"
-                onClick={login}
-              >
+              <button className="mt-4 bg-primary text-white py-2 px-6 rounded-md hover:bg-primary-400">
                 Entrar
               </button>
               <Link to="/recordar_cont" className="text-sm hover:underline">
@@ -82,5 +42,5 @@ export default function Login() {
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,29 +1,58 @@
-import React, { useEffect, useState } from 'react'
-import CardObjeto from './CardObjeto'
-import db from '../../firebase';
-import { collection, getDocs } from 'firebase/firestore/lite';
+import React, { useEffect, useState } from "react";
+import CardObjeto from "./CardObjeto";
+import { collection, getDocs } from "firebase/firestore/lite";
+import { db } from "../../firebase";
 
 export default function ListaObjetos() {
-  const [objetos, setobjetos] = useState([])
-
-
   useEffect(() => {
-    const data = obtenerObjetos(db).then((data)=>{
-      return data;
-    });
+    obtenerObjetos(db)
+  });
 
-    data.then((data)=>{
-      setobjetos(data)
-    })
-  }, [objetos])
-  
+  const obtenerObjetos = async (database) => {
+  };
 
-  const obtenerObjetos = async (db) => {
-    const objetos = collection(db, 'objetos');
-    const objetosSnapshot = await getDocs(objetos);
-    const listaObjetos = objetosSnapshot.docs.map(doc => doc.data());
-    return listaObjetos;
-  }
+  const [objetos, setobjetos] = useState([
+    {
+      id: 1,
+      nombre: "Objeto #1",
+      descripcion:
+        "Lorem ipsum dolor sit amet, consectetur adipisicing elit.Voluptatibus quia, nulla! Maiores et perferendis eaque,exercitationem praesentium nihil.",
+      imagen:
+        "https://http2.mlstatic.com/D_NQ_NP_974154-MCO46436090342_062021-O.webp",
+    },
+    {
+      id: 2,
+      nombre: "Objeto #2",
+      descripcion:
+        "Lorem ipsum dolor sit amet, consectetur adipisicing elit.Voluptatibus quia, nulla! Maiores et perferendis eaque,exercitationem praesentium nihil.",
+      imagen:
+        "https://http2.mlstatic.com/D_NQ_NP_974154-MCO46436090342_062021-O.webp",
+    },
+    {
+      id: 3,
+      nombre: "Objeto #3",
+      descripcion:
+        "Lorem ipsum dolor sit amet, consectetur adipisicing elit.Voluptatibus quia, nulla! Maiores et perferendis eaque,exercitationem praesentium nihil.",
+      imagen:
+        "https://http2.mlstatic.com/D_NQ_NP_974154-MCO46436090342_062021-O.webp",
+    },
+    {
+      id: 4,
+      nombre: "Objeto #4",
+      descripcion:
+        "Lorem ipsum dolor sit amet, consectetur adipisicing elit.Voluptatibus quia, nulla! Maiores et perferendis eaque,exercitationem praesentium nihil.",
+      imagen:
+        "https://http2.mlstatic.com/D_NQ_NP_974154-MCO46436090342_062021-O.webp",
+    },
+    {
+      id: 5,
+      nombre: "Objeto #5",
+      descripcion:
+        "Lorem ipsum dolor sit amet, consectetur adipisicing elit.Voluptatibus quia, nulla! Maiores et perferendis eaque,exercitationem praesentium nihil.",
+      imagen:
+        "https://http2.mlstatic.com/D_NQ_NP_974154-MCO46436090342_062021-O.webp",
+    },
+  ]);
 
   return (
     <div class="flex">
@@ -31,5 +60,5 @@ export default function ListaObjetos() {
         <CardObjeto data={objeto} />
       ))}
     </div>
-  )
+  );
 }
