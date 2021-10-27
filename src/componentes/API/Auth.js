@@ -22,7 +22,7 @@ const LoginMethod = (datos) => new Promise((resolve, reject) => {
 
 
 const verificarAuth = () => {
-    if (localStorage.getItem(USER_NAME) || localStorage.getItem(USER_KEY)) {
+    if (localStorage.getItem(USER_KEY)) {
         return true;
     } else {
         return false;

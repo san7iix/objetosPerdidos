@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { verificarAuth } from '../API/Auth'
+import { signOut, getAuth, onAuthStateChanged } from 'firebase/auth'
 
 export default function Navbar() {
+
   return (
     <nav className="bg-primary">
       <div className="py-4 px-8 xl:max-w-6x1 mx-auto">
@@ -18,10 +21,36 @@ export default function Navbar() {
             </Link>
           </div>
           <div className="flex items-center space-x-3 text-white">
-            <Link className="hover:underline" to="/">Inicio</Link>
-            <Link className="hover:underline" to="/objetos">Objetos</Link>
-            <Link className="hover:underline" to="/perfil">Perfil</Link>
-            <Link className="hover:underline" to="/login">Login</Link>
+            <Link className="hover:underline" to="/">
+              Inicio
+            </Link>
+            <Link className="hover:underline" to="/objetos">
+              Objetos
+            </Link>
+            {verificarAuth() ? (
+              <Link className="hover:underline" to="/objetos/reportar">
+                Reportar objeto
+              </Link>
+            ) : (
+              ''
+            )}
+            <Link className="hover:underline" to="/perfil">
+              Perfil
+            </Link>
+            {!verificarAuth() ? (
+              <Link className="hover:underline" to="/login">
+                Login
+              </Link>
+            ) : (
+              ''
+            )}
+            {verificarAuth() ? (
+              <Link className="hover:underline" to="/logout">
+                Logout
+              </Link>
+            ) : (
+              ''
+            )}
           </div>
           <div className="sm:hidden flex items-center">
             <div>Secondary nav</div>

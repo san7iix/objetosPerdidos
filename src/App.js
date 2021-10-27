@@ -7,6 +7,8 @@ import Registro from './componentes/Usuario/Registro'
 import Perfil from './componentes/Usuario/Perfil'
 import ListaObjetos from './componentes/Objetos/ListaObjetos'
 import PrivateRoute from './componentes/Middlewares/RutaPrivada'
+import Logout from './componentes/Usuario/Logout'
+import AgregarObjeto from './componentes/Objetos/AgregarObjeto'
 
 function App() {
   return (
@@ -14,18 +16,24 @@ function App() {
       <Router>
         <Navbar />
         <Switch>
-          <Route exact path="/objetos">
+          <PrivateRoute exact path="/objetos">
             <ListaObjetos />
-          </Route>
+          </PrivateRoute>
+          <PrivateRoute exact path="/objetos/reportar">
+            <AgregarObjeto />
+          </PrivateRoute>
           <PrivateRoute exact path="/perfil">
             <Perfil />
           </PrivateRoute>
           <Route exact path="/login">
             <Login />
           </Route>
-          <Route exact path="/registro">
+          <PrivateRoute exact path="/registro">
             <Registro />
-          </Route>
+          </PrivateRoute>
+          <PrivateRoute exact path="/logout">
+            <Logout />
+          </PrivateRoute>
           <Route path="/">
             <Landing />
           </Route>
