@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { verificarAuth } from '../API/Auth'
-import { signOut, getAuth, onAuthStateChanged } from 'firebase/auth'
 
 export default function Navbar() {
 
@@ -27,7 +25,7 @@ export default function Navbar() {
             <Link className="hover:underline" to="/objetos">
               Objetos
             </Link>
-            {verificarAuth() ? (
+            {true ? (
               <Link className="hover:underline" to="/objetos/reportar">
                 Reportar objeto
               </Link>
@@ -37,14 +35,14 @@ export default function Navbar() {
             <Link className="hover:underline" to="/perfil">
               Perfil
             </Link>
-            {!verificarAuth() ? (
+            {!true ? (
               <Link className="hover:underline" to="/login">
                 Login
               </Link>
             ) : (
               ''
             )}
-            {verificarAuth() ? (
+            {true ? (
               <Link className="hover:underline" to="/logout">
                 Logout
               </Link>
