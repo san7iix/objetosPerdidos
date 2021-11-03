@@ -1,10 +1,37 @@
-import React from 'react'
+import { collection, getDocs, query, where } from '@firebase/firestore'
+import React, { useContext, useEffect, useState } from 'react'
+import db from '../../base'
+import { AuthContext } from '../Middlewares/AuthMiddleware'
+import CardObjeto from '../Objetos/CardObjeto'
 
 export default function Perfil() {
+  const [objetos, setobjetos] = useState([])
+
+  const { currentUser } = useContext(AuthContext)
+
+  const obtenerObjetos = () => {
+    const { email } = currentUser
+
+    const objetosColeccion = collection(db, 'objetos')
+    const q = query(objetosColeccion, where('usuario', '==', email))
+    getDocs(q).then((snapshot) => {
+      const data = snapshot.docs.map((doc) => doc.data())
+      setobjetos(data)
+    })
+  }
+  
+  useEffect(() => {
+    obtenerObjetos()
+  }, [])
+
   return (
-    <div class="p-10">
+    <div class="flex flex-row">
       <div class="max-w-sm rounded overflow-hidden shadow-lg">
-        <img class="w-full" src="https://bysperfeccionoral.com/wp-content/uploads/2020/01/136-1366211_group-of-10-guys-login-user-icon-png.jpg" alt="foto" />
+        <img
+          class="w-full"
+          src="https://bysperfeccionoral.com/wp-content/uploads/2020/01/136-1366211_group-of-10-guys-login-user-icon-png.jpg"
+          alt="foto"
+        />
         <div class="px-6 py-4">
           <label htmlFor="" className="block font-semibold">
             Nombre
@@ -36,6 +63,11 @@ export default function Perfil() {
             </button>
           </div>
         </div>
+      </div>
+      <div className="flex flex-row">
+        {objetos.map((objeto) => (
+          <CardObjeto data={objeto} />
+        ))}
       </div>
     </div>
   )

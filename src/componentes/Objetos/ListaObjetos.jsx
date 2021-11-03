@@ -7,15 +7,15 @@ export default function ListaObjetos() {
   const [objetos, setobjetos] = useState([])
 
   useEffect(() => {
-    const data = obtenerObjetos(db).then((data) => {
-      return data
-    })
+    obtenerObjetos(db)
+      .then((data) => {
+        return data
+      })
+      .then((data) => {
+        setobjetos(data)
+      })
 
-    data.then((data) => {
-      setobjetos(data)
-    })
-
-  })
+  }, [])
 
   const obtenerObjetos = async (db) => {
     const objetos = collection(db, 'objetos')
@@ -30,5 +30,5 @@ export default function ListaObjetos() {
         <CardObjeto data={objeto} />
       ))}
     </div>
-  );
+  )
 }

@@ -1,13 +1,19 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { USER_KEY } from '../../var.config'
 import { doc, setDoc } from 'firebase/firestore'
-import { collection, addDoc } from 'firebase/firestore'
-import { useHistory } from 'react-router'
-import { AuthContext } from '../Middlewares/AuthMiddleware'
 import db from '../../base'
+import { collection, addDoc } from 'firebase/firestore/'
+import { useHistory } from 'react-router'
+import { useContext } from 'react/cjs/react.development'
+import { AuthContext } from '../Middlewares/AuthMiddleware'
 
 export default function AgregarObjeto() {
   let history = useHistory()
+
   const { currentUser } = useContext(AuthContext)
+
+  const et = useRef(null)
+
   const [datos, setdatos] = useState({
     usuario: currentUser.email,
     descripcion: '',
@@ -16,10 +22,7 @@ export default function AgregarObjeto() {
     imagen: '',
   })
 
-  const [error, setError] = useState('')
   const [enviar, setenviar] = useState(false)
-
-  const et = useRef('')
 
   const handleChange = (e) => {
     const { id, value } = e.target
@@ -31,8 +34,9 @@ export default function AgregarObjeto() {
   }
 
   useEffect(() => {
-    if(enviar){
+    if (enviar) {
       reportar()
+      setenviar(false);
     }
   }, [enviar])
 
@@ -42,17 +46,15 @@ export default function AgregarObjeto() {
       alert('Objeto agregado correctamente')
       history.push('/objetos')
     }
+    console.log(datos)
   }
 
   const separarEtiquetas = () => {
-    setdatos((prev) => ({
-      ...prev,
+    setdatos((prevState) => ({
+      ...prevState,
       etiquetas: et.current.value.split(','),
     }))
-
     setenviar(true);
-
-    console.log(datos)
   }
 
   return (
