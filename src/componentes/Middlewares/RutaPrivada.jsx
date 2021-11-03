@@ -1,10 +1,16 @@
-import { Redirect, Route } from "react-router";
+import { useContext } from 'react'
+import { Redirect, Route } from 'react-router'
+import { AuthContext } from './AuthMiddleware'
 
-export default function PrivateRoute({ children, ...rest }) {
-    var isAuth = true; 
+const PrivateRoute = ({ children, ...rest }) => {
+  const { currentUser } = useContext(AuthContext)
 
-  
-    return (
-      <Route {...rest} render={() => (isAuth ? children : <Redirect to="/" />)} />
-    );
-  }
+  return (
+    <Route
+      {...rest}
+      render={() => (!!currentUser ? children : <Redirect to="/" />)}
+    />
+  )
+}
+
+export default PrivateRoute

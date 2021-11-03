@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Redirect, useHistory } from 'react-router'
-import db from '../../firebase'
+import db from '../../base'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { USER_KEY } from '../../var.config'
 
@@ -20,7 +20,6 @@ export default function Login() {
         const { user } = userCredential
         if (user) {
           history.push('/objetos')
-          localStorage.setItem(USER_KEY, JSON.stringify(user))
         }
       })
       .catch((err) => {

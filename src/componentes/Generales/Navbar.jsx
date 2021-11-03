@@ -1,7 +1,14 @@
-import React, { useEffect } from 'react'
+import { getApp } from '@firebase/app'
+import { getAuth } from '@firebase/auth'
+import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { app } from '../../base'
+import { AuthContext } from '../Middlewares/AuthMiddleware'
 
 export default function Navbar() {
+  const { currentUser } = useContext(AuthContext)
+
+  useEffect(() => {})
 
   return (
     <nav className="bg-primary">
@@ -22,30 +29,37 @@ export default function Navbar() {
             <Link className="hover:underline" to="/">
               Inicio
             </Link>
-            <Link className="hover:underline" to="/objetos">
-              Objetos
-            </Link>
-            {true ? (
+            {!!currentUser ? (
+              <Link className="hover:underline" to="/objetos">
+                Objetos
+              </Link>
+            ) : (
+              ''
+            )}
+            {!!currentUser ? (
               <Link className="hover:underline" to="/objetos/reportar">
                 Reportar objeto
               </Link>
             ) : (
               ''
             )}
-            <Link className="hover:underline" to="/perfil">
-              Perfil
-            </Link>
-            {!true ? (
+            {!!currentUser ? (
+              <Link className="hover:underline" to="/perfil">
+                Perfil
+              </Link>
+            ) : (
+              ''
+            )}
+
+            {!currentUser ? (
               <Link className="hover:underline" to="/login">
                 Login
               </Link>
             ) : (
               ''
             )}
-            {true ? (
-              <Link className="hover:underline" to="/logout">
-                Logout
-              </Link>
+            {!!currentUser ? (
+              <button onClick={() => getAuth(app).signOut()}>Salir</button>
             ) : (
               ''
             )}

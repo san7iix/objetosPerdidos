@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useHistory } from 'react-router'
 import { signOut, getAuth } from 'firebase/auth'
-import db from '../../firebase';
+import db from '../../base';
 import { USER_KEY } from '../../var.config';
 
 
