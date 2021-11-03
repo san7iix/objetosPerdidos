@@ -31,5 +31,5 @@ export default function ListaObjetos() {
         <CardObjeto data={objeto} />
       ))}
     </div>
-  );
+  )
 }
