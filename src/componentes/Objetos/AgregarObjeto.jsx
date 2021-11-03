@@ -1,25 +1,19 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { USER_KEY } from '../../var.config'
 import { doc, setDoc } from 'firebase/firestore'
-import { collection, addDoc } from 'firebase/firestore'
+import db from '../../firebase'
+import { collection, addDoc } from 'firebase/firestore/lite'
 import { useHistory } from 'react-router'
-import { AuthContext } from '../Middlewares/AuthMiddleware'
-import db from '../../base'
 
 export default function AgregarObjeto() {
   let history = useHistory()
-  const { currentUser } = useContext(AuthContext)
   const [datos, setdatos] = useState({
-    usuario: currentUser.email,
+    usuario: JSON.parse(localStorage.getItem(USER_KEY)).email,
     descripcion: '',
     nombre: '',
     etiquetas: '',
     imagen: '',
   })
-
-  const [error, setError] = useState('')
-  const [enviar, setenviar] = useState(false)
-
-  const et = useRef('')
 
   const handleChange = (e) => {
     const { id, value } = e.target
@@ -30,29 +24,14 @@ export default function AgregarObjeto() {
     }))
   }
 
-  useEffect(() => {
-    if(enviar){
-      reportar()
-    }
-  }, [enviar])
+  useEffect(() => {})
 
   const reportar = async () => {
     const docRef = await addDoc(collection(db, 'objetos'), datos)
     if (docRef) {
-      alert('Objeto agregado correctamente')
-      history.push('/objetos')
+        alert("Objeto agregado correctamente");
+        history.push("/objetos")
     }
-  }
-
-  const separarEtiquetas = () => {
-    setdatos((prev) => ({
-      ...prev,
-      etiquetas: et.current.value.split(','),
-    }))
-
-    setenviar(true);
-
-    console.log(datos)
   }
 
   return (
@@ -101,12 +80,12 @@ export default function AgregarObjeto() {
               placeholder="Etiquetas (separadas por coma)"
               className="border w-full h-5 px-3 py-5 mt-2 hover:outline-none rounded-md focus:ring-indigo-400"
               id="etiquetas"
-              ref={et}
+              onChange={(e) => handleChange(e)}
             />
             <div className="flex justify-between items-baseline">
               <button
                 className="mt-4 bg-primary text-white py-2 px-6 rounded-md hover:bg-primary-400"
-                onClick={separarEtiquetas}
+                onClick={reportar}
               >
                 Reportar
               </button>

@@ -5,16 +5,16 @@ import Login from './componentes/Usuario/Login'
 import Registro from './componentes/Usuario/Registro'
 import Perfil from './componentes/Usuario/Perfil'
 import ListaObjetos from './componentes/Objetos/ListaObjetos'
+import PrivateRoute from './componentes/Middlewares/RutaPrivada'
 import Logout from './componentes/Usuario/Logout'
 import AgregarObjeto from './componentes/Objetos/AgregarObjeto'
-import { AuthProvider } from './componentes/Middlewares/AuthMiddleware'
-import PrivateRoute from './componentes/Middlewares/RutaPrivada'
+import { AuthProvider } from './componentes/API/AuthContext'
 
 function App() {
   return (
     <div className="App">
-      <AuthProvider>
-        <Router>
+      <Router>
+        <AuthProvider>
           <Navbar />
           <Switch>
             <PrivateRoute exact path="/objetos">
@@ -39,8 +39,8 @@ function App() {
               <Landing />
             </Route>
           </Switch>
-        </Router>
-      </AuthProvider>
+        </AuthProvider>
+      </Router>
     </div>
   )
 }
