@@ -50,8 +50,6 @@ export default function Login() {
               type="text"
               placeholder="Email"
               className="border w-full h-5 px-3 py-5 mt-2 hover:outline-none rounded-md focus:ring-indigo-400"
-              id="email"
-              onChange={(e) => handleChange(e)}
             />
             <label htmlFor="" className="block font-semibold">
               Contraseña
@@ -60,14 +58,9 @@ export default function Login() {
               type="password"
               placeholder="Contraseña"
               className="border w-full h-5 px-3 py-5 mt-2 hover:outline-none rounded-md focus:ring-indigo-400"
-              id="password"
-              onChange={(e) => handleChange(e)}
             />
             <div className="flex justify-between items-baseline">
-              <button
-                className="mt-4 bg-primary text-white py-2 px-6 rounded-md hover:bg-primary-400"
-                onClick={login}
-              >
+              <button className="mt-4 bg-primary text-white py-2 px-6 rounded-md hover:bg-primary-400">
                 Entrar
               </button>
               <Link to="/recordar_cont" className="text-sm hover:underline">
@@ -81,5 +74,5 @@ export default function Login() {
         </div>
       </div>
     </div>
-  )
+  );
 }
