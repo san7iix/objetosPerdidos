@@ -1,6 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { USER_KEY } from '../../var.config'
-import { doc, setDoc } from 'firebase/firestore'
 import db from '../../base'
 import { collection, addDoc } from 'firebase/firestore/'
 import { useHistory } from 'react-router'
@@ -15,7 +13,7 @@ export default function AgregarObjeto() {
   const et = useRef(null)
 
   const [datos, setdatos] = useState({
-    usuario: currentUser.email,
+    usuario: '',
     descripcion: '',
     nombre: '',
     etiquetas: '',
@@ -35,8 +33,12 @@ export default function AgregarObjeto() {
 
   useEffect(() => {
     if (enviar) {
+      setdatos((prevState) => ({
+        ...prevState,
+        usuario: currentUser.email,
+      }))
       reportar()
-      setenviar(false);
+      setenviar(false)
     }
   }, [enviar])
 
@@ -54,7 +56,7 @@ export default function AgregarObjeto() {
       ...prevState,
       etiquetas: et.current.value.split(','),
     }))
-    setenviar(true);
+    setenviar(true)
   }
 
   return (
