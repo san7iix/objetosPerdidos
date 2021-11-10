@@ -11,7 +11,7 @@ export default function Navbar() {
   useEffect(() => {})
 
   return (
-    <nav className="bg-primary">
+    <nav className="bg-primary-ligth">
       <div className="py-4 px-8 xl:max-w-6x1 mx-auto">
         <div className="flex justify-between mr-4">
           <div className="">
@@ -33,12 +33,20 @@ export default function Navbar() {
               Objetos
             </Link>
             {!!currentUser ? (
+              <Link className="hover:underline" to="/objetos/espera">
+                Objetos en espera
+              </Link>
+            ) : (
+              ''
+            )}
+            {!!currentUser ? (
               <Link className="hover:underline" to="/objetos/reportar">
                 Reportar objeto
               </Link>
             ) : (
               ''
             )}
+
             {!!currentUser ? (
               <Link className="hover:underline" to="/perfil">
                 Perfil

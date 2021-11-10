@@ -9,6 +9,8 @@ import Logout from './componentes/Usuario/Logout'
 import AgregarObjeto from './componentes/Objetos/AgregarObjeto'
 import { AuthProvider } from './componentes/Middlewares/AuthMiddleware'
 import PrivateRoute from './componentes/Middlewares/RutaPrivada'
+import GenerarCodigo from './componentes/Objetos/GenerarCodigo'
+import ObjetosEnEspera from './componentes/Objetos/ObjetosEnEspera'
 
 function App() {
   return (
@@ -22,6 +24,12 @@ function App() {
             </Route>
             <PrivateRoute exact path="/objetos/reportar">
               <AgregarObjeto />
+            </PrivateRoute>
+            <PrivateRoute exact path="/generarReclamo/:id">
+              <GenerarCodigo />
+            </PrivateRoute>
+            <PrivateRoute exact path="/objetos/espera">
+              <ObjetosEnEspera />
             </PrivateRoute>
             <PrivateRoute exact path="/perfil">
               <Perfil />

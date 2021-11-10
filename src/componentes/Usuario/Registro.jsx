@@ -46,7 +46,7 @@ export default function Registro() {
       <div className="relative py-3 sm:max-w-xl sm:mx-auto w-2/3">
         <span className="text-2xl font-light">Regístrate</span>
         <div className="mt-4 bg-white shadow-md rounded-lg">
-          <div className="h-2 bg-primary rounded-t-md"></div>
+          <div className="h-2 bg-primary-ligth rounded-t-md"></div>
           <div className="px-8 py-6">
             <label htmlFor="" className="block font-semibold">
               Nombre
@@ -80,7 +80,7 @@ export default function Registro() {
             <div className="flex justify-between items-baseline">
               <button
                 onClick={registrar}
-                className="mt-4 bg-primary text-white py-2 px-6 rounded-md hover:bg-primary-400"
+                className="mt-4 bg-primary-ligth text-white py-2 px-6 rounded-md hover:bg-primary-dark"
               >
                 Registrarme
               </button>

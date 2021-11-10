@@ -9,7 +9,7 @@ export default function ListaObjetos() {
 
   useEffect(() => {
     if (buscar === '') {
-      obtenerObjetos(db)
+      obtenerObjetos()
         .then((data) => {
           return data
         })
@@ -17,13 +17,15 @@ export default function ListaObjetos() {
           setobjetos(data)
         })
     }
-
   }, [buscar])
 
-  const obtenerObjetos = async (db) => {
+  const obtenerObjetos = async () => {
     const objetos = collection(db, 'objetos')
     const objetosSnapshot = await getDocs(objetos)
-    const listaObjetos = objetosSnapshot.docs.map((doc) => doc.data())
+    const listaObjetos = objetosSnapshot.docs.map((doc) => {
+      const obj = { id: doc.id.toString() }
+      return Object.assign({}, doc.data(), obj)
+    })
     return listaObjetos
   }
 
@@ -42,7 +44,7 @@ export default function ListaObjetos() {
   }
 
   return (
-    <div class="flex flex-col">
+    <div className="flex flex-col">
       <div className="flex items-center justify-center ">
         <input
           onChange={(e) => handleChange(e)}
@@ -70,7 +72,7 @@ export default function ListaObjetos() {
       </div>
       <div className="flex flex-row flex-wrap">
         {objetos.map((objeto) => (
-          <CardObjeto data={objeto} />
+          <CardObjeto key={objeto.id} data={objeto} />
         ))}
       </div>
     </div>

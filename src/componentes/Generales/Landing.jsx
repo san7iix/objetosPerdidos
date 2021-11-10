@@ -14,7 +14,10 @@ export default function Landing() {
     const objetosRef = collection(db, 'objetos')
     const q = query(objetosRef, orderBy('creado', 'desc'), limit(4))
     getDocs(q).then((snapshot) => {
-      const data = snapshot.docs.map((doc) => doc.data())
+      const data = snapshot.docs.map((doc) => {
+        const obj = { id: doc.id.toString() }
+        return Object.assign({}, doc.data(), obj)
+      })
       setobjetos(data)
     })
   }
@@ -41,7 +44,7 @@ export default function Landing() {
         </div>
         <div className="flex flex-row flex-wrap">
           {objetos.map((objeto) => (
-            <CardObjeto data={objeto} />
+            <CardObjeto key={objeto.id} data={objeto} />
           ))}
         </div>
         <div className="flex flex-col space-y-10 pt-10">

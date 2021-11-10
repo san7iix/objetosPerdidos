@@ -58,7 +58,7 @@ export default function Perfil() {
             className="border w-full h-5 px-3 py-5 mt-2 hover:outline-none rounded-md focus:ring-indigo-400"
           />
           <div className="flex justify-between items-baseline">
-            <button className="mt-4 bg-primary text-white py-2 px-6 rounded-md hover:bg-primary-400">
+            <button className="mt-4 bg-primary-ligth text-white py-2 px-6 rounded-md hover:bg-primary-dark">
               Actualizar datos
             </button>
           </div>

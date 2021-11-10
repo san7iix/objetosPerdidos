@@ -1,10 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default function CardObjeto({ data }) {
-
-
-  useEffect(() => {})
+export default function CardObjetoReclamar({ data }) {
 
   return (
     <div className="p-10">
@@ -26,7 +23,7 @@ export default function CardObjeto({ data }) {
           ))}
         </div>
         <div className="m-6" >
-          <Link to={`generarReclamo/${data.id}`} className="bg-primary-ligth text-white p-3 rounded-lg hover:bg-primary-dark">
+          <Link to={`/reclamar/${data.id}`} className="bg-primary-ligth text-white p-3 rounded-lg hover:bg-primary-dark">
             Reclamar
           </Link >
         </div>
