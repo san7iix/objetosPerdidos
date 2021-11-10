@@ -8,7 +8,7 @@ import {
 } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import db from '../../base'
-import CardObjeto from '../Objetos/CardObjeto'
+import CardObjeto from '../Objetos/Cards/CardObjeto'
 
 export default function Landing() {
   const [objetos, setobjetos] = useState([])

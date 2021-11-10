@@ -40,6 +40,13 @@ export default function Navbar() {
               ''
             )}
             {!!currentUser ? (
+              <Link className="hover:underline" to="/objetos/reclamados">
+                Objetos reclamados
+              </Link>
+            ) : (
+              ''
+            )}
+            {!!currentUser ? (
               <Link className="hover:underline" to="/objetos/reportar">
                 Reportar objeto
               </Link>

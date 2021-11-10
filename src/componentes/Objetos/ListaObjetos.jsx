@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import CardObjeto from './CardObjeto'
+import CardObjeto from './Cards/CardObjeto'
 import {
   collection,
   getDocs,

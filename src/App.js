@@ -12,6 +12,7 @@ import PrivateRoute from './componentes/Middlewares/RutaPrivada'
 import GenerarCodigo from './componentes/Objetos/GenerarCodigo'
 import ObjetosEnEspera from './componentes/Objetos/ObjetosEnEspera'
 import ReclamarObjeto from './componentes/Objetos/ReclamarObjeto'
+import ObjetosReclamados from './componentes/Objetos/ObjetosReclamados'
 
 function App() {
   return (
@@ -31,6 +32,9 @@ function App() {
             </PrivateRoute>
             <PrivateRoute exact path="/objetos/espera">
               <ObjetosEnEspera />
+            </PrivateRoute>
+            <PrivateRoute exact path="/objetos/reclamados">
+              <ObjetosReclamados />
             </PrivateRoute>
             <PrivateRoute exact path="/reclamar/:id">
               <ReclamarObjeto />

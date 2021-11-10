@@ -2,7 +2,7 @@ import { collection, getDocs, query, where } from '@firebase/firestore'
 import React, { useContext, useEffect, useState } from 'react'
 import db from '../../base'
 import { AuthContext } from '../Middlewares/AuthMiddleware'
-import CardObjeto from '../Objetos/CardObjeto'
+import CardObjeto from '../Objetos/Cards/CardObjeto'
 
 export default function Perfil() {
   const [objetos, setobjetos] = useState([])

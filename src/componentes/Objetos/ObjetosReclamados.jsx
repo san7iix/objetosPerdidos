@@ -1,18 +1,19 @@
 import { collection, getDocs, query, where } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import db from '../../base'
-import CardObjetoReclamar from './Cards/CardObjetoReclamar'
+import CardNoButton from './Cards/CardNoButton'
+import CardObjeto from './Cards/CardObjeto'
 
-export default function ObjetosEnEspera() {
+export default function ObjetosReclamados() {
   const [objetos, setobjetos] = useState([])
 
   useEffect(() => {
     obtenerObjetos()
   }, [])
 
-  const obtenerObjetos = () => {
+  const obtenerObjetos = async () => {
     const objetosRef = collection(db, 'objetos')
-    const q = query(objetosRef, where('estado', '==', 2))
+    const q = query(objetosRef, where('estado', '==', 4))
     getDocs(q).then((snapshot) => {
       const data = snapshot.docs.map((doc) => {
         const obj = { id: doc.id.toString() }
@@ -23,10 +24,12 @@ export default function ObjetosEnEspera() {
   }
 
   return (
-    <div className="flex flex-row flex-wrap">
-      {objetos.map((objeto) => (
-        <CardObjetoReclamar key={objeto.id} data={objeto} />
-      ))}
+    <div>
+      <div className="flex flex-row flex-wrap">
+        {objetos.map((objeto) => (
+          <CardNoButton key={objeto.id} data={objeto} />
+        ))}
+      </div>
     </div>
   )
 }
