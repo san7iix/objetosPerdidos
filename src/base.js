@@ -9,23 +9,23 @@ import 'firebase/auth'
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-// const firebaseConfig = {
-//   apiKey: "AIzaSyDnqaVhoI59vUoQdJ1FZkhxBEAOlltfqOs",
-//   authDomain: "objetosperdidos-6455f.firebaseapp.com",
-//   projectId: "objetosperdidos-6455f",
-//   storageBucket: "objetosperdidos-6455f.appspot.com",
-//   messagingSenderId: "1017119667090",
-//   appId: "1:1017119667090:web:b89761baf7aa072805c74b",
-//   measurementId: "G-6XSCVV41DH"
-// };
 const firebaseConfig = {
-  apiKey: "AIzaSyDFqLXTp1mCFKeFE43Yn7SnCm0xyYUO7qA",
-  authDomain: "objetosperdidos2-b0b39.firebaseapp.com",
-  projectId: "objetosperdidos2-b0b39",
-  storageBucket: "objetosperdidos2-b0b39.appspot.com",
-  messagingSenderId: "211925187483",
-  appId: "1:211925187483:web:a0d73e8474a00ee3d03f3e"
+  apiKey: "AIzaSyDnqaVhoI59vUoQdJ1FZkhxBEAOlltfqOs",
+  authDomain: "objetosperdidos-6455f.firebaseapp.com",
+  projectId: "objetosperdidos-6455f",
+  storageBucket: "objetosperdidos-6455f.appspot.com",
+  messagingSenderId: "1017119667090",
+  appId: "1:1017119667090:web:b89761baf7aa072805c74b",
+  measurementId: "G-6XSCVV41DH"
 };
+// const firebaseConfig = {
+//   apiKey: "AIzaSyDFqLXTp1mCFKeFE43Yn7SnCm0xyYUO7qA",
+//   authDomain: "objetosperdidos2-b0b39.firebaseapp.com",
+//   projectId: "objetosperdidos2-b0b39",
+//   storageBucket: "objetosperdidos2-b0b39.appspot.com",
+//   messagingSenderId: "211925187483",
+//   appId: "1:211925187483:web:a0d73e8474a00ee3d03f3e"
+// };
 
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);

@@ -8,13 +8,10 @@ export default function CardObjeto({ data }) {
   return (
     <div class="p-10">
       <div class="max-w-sm rounded overflow-hidden shadow-lg">
-        <img class="w-full" src={datos.imagen} alt="Mountain" />
+        <img class="h-72 w-full object-cover" src={datos.imagen} alt="Mountain" />
         <div class="px-6 py-4">
           <div class="font-bold text-xl mb-2">{data.nombre}</div>
-          <p class="text-gray-700 text-base">{data.descripcion}</p>
-        </div>
-        <div class="px-6 py-4">
-          Encontrado por: <p className="font-bold">{datos.usuario}</p>
+          <p class="text-gray-700 text-base">Descripcion: {data.descripcion}</p>
         </div>
         <div class="px-6 pt-4 pb-2">
           {datos.etiquetas.map((etiqueta) => (

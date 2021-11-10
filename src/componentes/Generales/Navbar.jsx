@@ -29,13 +29,9 @@ export default function Navbar() {
             <Link className="hover:underline" to="/">
               Inicio
             </Link>
-            {!!currentUser ? (
-              <Link className="hover:underline" to="/objetos">
-                Objetos
-              </Link>
-            ) : (
-              ''
-            )}
+            <Link className="hover:underline" to="/objetos">
+              Objetos
+            </Link>
             {!!currentUser ? (
               <Link className="hover:underline" to="/objetos/reportar">
                 Reportar objeto

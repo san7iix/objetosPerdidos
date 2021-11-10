@@ -9,11 +9,9 @@ export default function AgregarObjeto() {
   let history = useHistory()
 
   const { currentUser } = useContext(AuthContext)
-
   const et = useRef(null)
 
   const [datos, setdatos] = useState({
-    usuario: '',
     descripcion: '',
     nombre: '',
     etiquetas: '',
@@ -33,10 +31,6 @@ export default function AgregarObjeto() {
 
   useEffect(() => {
     if (enviar) {
-      setdatos((prevState) => ({
-        ...prevState,
-        usuario: currentUser.email,
-      }))
       reportar()
       setenviar(false)
     }
@@ -48,13 +42,13 @@ export default function AgregarObjeto() {
       alert('Objeto agregado correctamente')
       history.push('/objetos')
     }
-    console.log(datos)
   }
 
   const separarEtiquetas = () => {
     setdatos((prevState) => ({
       ...prevState,
       etiquetas: et.current.value.split(','),
+      creado: Date.now(),
     }))
     setenviar(true)
   }

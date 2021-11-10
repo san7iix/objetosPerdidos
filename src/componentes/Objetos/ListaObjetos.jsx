@@ -68,7 +68,7 @@ export default function ListaObjetos() {
           </svg>
         </button>
       </div>
-      <div className="flex flex-row">
+      <div className="flex flex-row flex-wrap">
         {objetos.map((objeto) => (
           <CardObjeto data={objeto} />
         ))}

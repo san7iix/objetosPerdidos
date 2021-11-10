@@ -17,9 +17,9 @@ function App() {
         <Router>
           <Navbar />
           <Switch>
-            <PrivateRoute exact path="/objetos">
+            <Route exact path="/objetos">
               <ListaObjetos />
-            </PrivateRoute>
+            </Route>
             <PrivateRoute exact path="/objetos/reportar">
               <AgregarObjeto />
             </PrivateRoute>
