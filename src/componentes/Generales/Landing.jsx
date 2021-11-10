@@ -1,4 +1,11 @@
-import { collection, getDocs, limit, orderBy, query } from '@firebase/firestore'
+import {
+  collection,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  where,
+} from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import db from '../../base'
 import CardObjeto from '../Objetos/CardObjeto'
@@ -12,7 +19,11 @@ export default function Landing() {
 
   const obtenerObjetos = async () => {
     const objetosRef = collection(db, 'objetos')
-    const q = query(objetosRef, orderBy('creado', 'desc'), limit(4))
+    const q = query(
+      objetosRef,
+      where('estado', '==', 0),
+      limit(4),
+    )
     getDocs(q).then((snapshot) => {
       const data = snapshot.docs.map((doc) => {
         const obj = { id: doc.id.toString() }

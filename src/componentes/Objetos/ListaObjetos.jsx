@@ -1,6 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CardObjeto from './CardObjeto'
-import { collection, getDocs } from 'firebase/firestore'
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  orderBy,
+  limit,
+} from 'firebase/firestore'
 import db from '../../base'
 
 export default function ListaObjetos() {
@@ -10,23 +17,19 @@ export default function ListaObjetos() {
   useEffect(() => {
     if (buscar === '') {
       obtenerObjetos()
-        .then((data) => {
-          return data
-        })
-        .then((data) => {
-          setobjetos(data)
-        })
     }
   }, [buscar])
 
   const obtenerObjetos = async () => {
-    const objetos = collection(db, 'objetos')
-    const objetosSnapshot = await getDocs(objetos)
-    const listaObjetos = objetosSnapshot.docs.map((doc) => {
-      const obj = { id: doc.id.toString() }
-      return Object.assign({}, doc.data(), obj)
+    const objetosRef = collection(db, 'objetos')
+    const q = query(objetosRef, where('estado', '==', 0))
+    getDocs(q).then((snapshot) => {
+      const data = snapshot.docs.map((doc) => {
+        const obj = { id: doc.id.toString() }
+        return Object.assign({}, doc.data(), obj)
+      })
+      setobjetos(data)
     })
-    return listaObjetos
   }
 
   const buscarObjeto = () => {
@@ -64,7 +67,7 @@ export default function ListaObjetos() {
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="2"
+              strokeWidth="2"
               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
             />
           </svg>
