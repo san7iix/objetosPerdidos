@@ -1,6 +1,6 @@
 import { collection, getDocs, query, where } from '@firebase/firestore'
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { updatePassword, updateEmail } from "firebase/auth"
+import { updatePassword, updateEmail, sendEmailVerification, getAuth } from "firebase/auth"
 import db from '../../base'
 import { AuthContext } from '../Middlewares/AuthMiddleware'
 import CardObjeto from '../Objetos/Cards/CardObjeto'
@@ -36,17 +36,30 @@ export default function Perfil() {
 
     if (em.length > 0) {
       updateEmail(currentUser, em).then(() => {
-        alert('Email cambiado correctamente.')
-        email.current.value = ''
-      }).catch(err => console.error(err));
+        const auth = getAuth();
+        const usuario_nuevo = auth.currentUser;
+        sendEmailVerification(usuario_nuevo).then(() => {
+
+          alert('Email cambiado correctamente. Se envió un mensaje de verificacion a su correo.')
+          email.current.value = ''
+        })
+          .catch((error) => {
+            console.error(error);
+          })
+      }).catch(err => {
+        console.error(err);
+        alert('Quizá tengas que ingresar de nuevo para cambiar tus datos.');
+
+      })
     }
-    
+
     if (password.length > 0) {
       if (verificarPass(password)) {
         updatePassword(currentUser, password).then(() => {
           alert('Contraseña cambiada correctamente.')
           pass.current.value = ''
         }).catch(err => {
+          alert('Quizá tengas que ingresar de nuevo para cambiar tus datos.')
           console.error(err);
         })
       }

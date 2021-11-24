@@ -51,15 +51,6 @@ export default function Registro() {
           <div className="h-2 bg-primary-ligth rounded-t-md"></div>
           <div className="px-8 py-6">
             <label htmlFor="" className="block font-semibold">
-              Nombre
-            </label>
-            <input
-              type="text"
-              placeholder="Nombre"
-              className="border w-full h-5 px-3 py-5 mt-2 hover:outline-none rounded-md focus:ring-indigo-400"
-              ref={nombre}
-            />
-            <label htmlFor="" className="block font-semibold">
               Email
             </label>
             <input

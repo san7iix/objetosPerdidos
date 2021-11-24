@@ -13,6 +13,7 @@ import GenerarCodigo from './componentes/Objetos/GenerarCodigo'
 import ObjetosEnEspera from './componentes/Objetos/ObjetosEnEspera'
 import ReclamarObjeto from './componentes/Objetos/ReclamarObjeto'
 import ObjetosReclamados from './componentes/Objetos/ObjetosReclamados'
+import AdminRoute from './componentes/Middlewares/RutaAdmin'
 
 function App() {
   return (

@@ -83,7 +83,7 @@ export default function Navbar() {
               ''
             )}
 
-            {!!currentUser && admin ? (
+            {!!currentUser ? (
               <Link className="hover:underline" to="/perfil">
                 Perfil
               </Link>
