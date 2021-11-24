@@ -8,7 +8,9 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setcurrentUser] = useState(null)
 
   useEffect(() => {
+
     getAuth(app).onAuthStateChanged(setcurrentUser)
+
   })
 
   return (

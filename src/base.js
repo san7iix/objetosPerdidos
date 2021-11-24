@@ -3,7 +3,9 @@ import * as firebase from "firebase/app";
 import {
   getFirestore
 } from "firebase/firestore";
-import 'firebase/auth'
+import 'firebase/auth';
+import "firebase/compat/storage";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -18,18 +20,12 @@ const firebaseConfig = {
   appId: "1:1017119667090:web:b89761baf7aa072805c74b",
   measurementId: "G-6XSCVV41DH"
 };
-// const firebaseConfig = {
-//   apiKey: "AIzaSyDFqLXTp1mCFKeFE43Yn7SnCm0xyYUO7qA",
-//   authDomain: "objetosperdidos2-b0b39.firebaseapp.com",
-//   projectId: "objetosperdidos2-b0b39",
-//   storageBucket: "objetosperdidos2-b0b39.appspot.com",
-//   messagingSenderId: "211925187483",
-//   appId: "1:211925187483:web:a0d73e8474a00ee3d03f3e"
-// };
 
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
 const db = getFirestore(app);
+
+
 
 export {
   app

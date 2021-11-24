@@ -1,28 +1,63 @@
 import { collection, getDocs, query, where } from '@firebase/firestore'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
+import { updatePassword, updateEmail } from "firebase/auth"
 import db from '../../base'
 import { AuthContext } from '../Middlewares/AuthMiddleware'
 import CardObjeto from '../Objetos/Cards/CardObjeto'
 
 export default function Perfil() {
-  const [objetos, setobjetos] = useState([])
+  const [error, seterror] = useState('');
+  const [enviar, setenviar] = useState(false);
 
-  const { currentUser } = useContext(AuthContext)
+  const { currentUser } = useContext(AuthContext);
 
-  const obtenerObjetos = () => {
-    const { email } = currentUser
+  const email = useRef('');
+  const pass = useRef('');
 
-    const objetosColeccion = collection(db, 'objetos')
-    const q = query(objetosColeccion, where('usuario', '==', email))
-    getDocs(q).then((snapshot) => {
-      const data = snapshot.docs.map((doc) => doc.data())
-      setobjetos(data)
-    })
-  }
-  
+
   useEffect(() => {
-    obtenerObjetos()
-  }, [])
+    if (enviar) {
+      editar();
+    }
+  }, [enviar])
+
+
+  const verificarPass = (password) => {
+    if (password.length < 7) {
+      seterror('La contraseña debe tener más de 7 caracteres.')
+      return false
+    }
+    return true
+  }
+
+  const editar = () => {
+    const em = email.current.value
+    const password = pass.current.value
+
+    if (em.length > 0) {
+      updateEmail(currentUser, em).then(() => {
+        alert('Email cambiado correctamente.')
+        email.current.value = ''
+      }).catch(err => console.error(err));
+    }
+    
+    if (password.length > 0) {
+      if (verificarPass(password)) {
+        updatePassword(currentUser, password).then(() => {
+          alert('Contraseña cambiada correctamente.')
+          pass.current.value = ''
+        }).catch(err => {
+          console.error(err);
+        })
+      }
+    }
+
+    if (enviar) {
+      setenviar(false);
+    }
+  }
+
+
 
   return (
     <div class="flex flex-row">
@@ -34,20 +69,13 @@ export default function Perfil() {
         />
         <div class="px-6 py-4">
           <label htmlFor="" className="block font-semibold">
-            Nombre
-          </label>
-          <input
-            type="text"
-            placeholder="Nombre"
-            className="border w-full h-5 px-3 py-5 mt-2 hover:outline-none rounded-md focus:ring-indigo-400"
-          />
-          <label htmlFor="" className="block font-semibold">
             Email
           </label>
           <input
             type="text"
             placeholder="Email"
             className="border w-full h-5 px-3 py-5 mt-2 hover:outline-none rounded-md focus:ring-indigo-400"
+            ref={email}
           />
           <label htmlFor="" className="block font-semibold">
             Contraseña
@@ -56,18 +84,16 @@ export default function Perfil() {
             type="password"
             placeholder="Contraseña"
             className="border w-full h-5 px-3 py-5 mt-2 hover:outline-none rounded-md focus:ring-indigo-400"
+            ref={pass}
           />
           <div className="flex justify-between items-baseline">
-            <button className="mt-4 bg-primary-ligth text-white py-2 px-6 rounded-md hover:bg-primary-dark">
+            <button
+              onClick={() => setenviar(true)}
+              className="mt-4 bg-primary-ligth text-white py-2 px-6 rounded-md hover:bg-primary-dark">
               Actualizar datos
             </button>
           </div>
         </div>
-      </div>
-      <div className="flex flex-row">
-        {objetos.map((objeto) => (
-          <CardObjeto data={objeto} />
-        ))}
       </div>
     </div>
   )

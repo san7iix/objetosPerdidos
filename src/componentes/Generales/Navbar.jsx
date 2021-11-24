@@ -1,14 +1,43 @@
 import { getApp } from '@firebase/app'
 import { getAuth } from '@firebase/auth'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { app } from '../../base'
+import db, { app } from '../../base'
 import { AuthContext } from '../Middlewares/AuthMiddleware'
+import {
+  collection,
+  getDoc,
+  getDocs,
+  getFirestore,
+  limit,
+  orderBy,
+  query,
+  refEqual,
+  where, doc
+} from '@firebase/firestore'
+import { ref } from '@firebase/storage'
+
 
 export default function Navbar() {
-  const { currentUser } = useContext(AuthContext)
+  const { currentUser } = useContext(AuthContext);
+  const [admin, setadmin] = useState(false);
 
-  useEffect(() => {})
+  const obtenerPermisos = async () => {
+    try {
+      const docRef = doc(db, 'admins', currentUser.email);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        setadmin(true);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    obtenerPermisos()
+  })
 
   return (
     <nav className="bg-primary-ligth">
@@ -32,21 +61,21 @@ export default function Navbar() {
             <Link className="hover:underline" to="/objetos">
               Objetos
             </Link>
-            {!!currentUser ? (
+            {!!currentUser && admin ? (
               <Link className="hover:underline" to="/objetos/espera">
                 Objetos en espera
               </Link>
             ) : (
               ''
             )}
-            {!!currentUser ? (
+            {!!currentUser && admin  ? (
               <Link className="hover:underline" to="/objetos/reclamados">
                 Objetos reclamados
               </Link>
             ) : (
               ''
             )}
-            {!!currentUser ? (
+            {!!currentUser && admin ? (
               <Link className="hover:underline" to="/objetos/reportar">
                 Reportar objeto
               </Link>
@@ -54,7 +83,7 @@ export default function Navbar() {
               ''
             )}
 
-            {!!currentUser ? (
+            {!!currentUser && admin ? (
               <Link className="hover:underline" to="/perfil">
                 Perfil
               </Link>
@@ -69,7 +98,7 @@ export default function Navbar() {
             ) : (
               ''
             )}
-            {!!currentUser ? (
+            {!!currentUser  ? (
               <button onClick={() => getAuth(app).signOut()}>Salir</button>
             ) : (
               ''

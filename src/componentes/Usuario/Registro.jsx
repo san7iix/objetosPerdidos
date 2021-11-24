@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Redirect, useHistory } from 'react-router'
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signOut } from 'firebase/auth'
 
 export default function Registro() {
   const email = useRef(null)
@@ -22,9 +22,11 @@ export default function Registro() {
       createUserWithEmailAndPassword(auth, em, password)
         .then((userCredential) => {
           const { user } = userCredential
-          if (user) {
-            history.push('/objetos')
-          }
+          sendEmailVerification(user).then(()=>{
+            signOut(auth);
+            alert('Se ha enviado un correo de verificación al Email proporcionado.')
+            history.push('/')
+          })
         })
         .catch((err) => {
           seterror('Ha ocurrido un error al registrar el usuario.')

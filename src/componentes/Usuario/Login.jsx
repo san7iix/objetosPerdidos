@@ -1,9 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Redirect, useHistory } from 'react-router'
-import db from '../../base'
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
-import { USER_KEY } from '../../var.config'
+import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 
 export default function Login() {
   const email = useRef(null)
@@ -22,7 +20,10 @@ export default function Login() {
     )
       .then((userCredential) => {
         const { user } = userCredential
-        if (user) {
+        if (!user.emailVerified) {
+          seterror('Debe verificar su email para ingresar.');
+          signOut(auth);
+        } else {
           history.push('/objetos')
         }
       })
@@ -32,7 +33,7 @@ export default function Login() {
   }
 
   useEffect(() => {
-  
+
   }, [])
 
   return (

@@ -1,12 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react'
-import db from '../../base'
-import { collection, addDoc } from 'firebase/firestore/'
+import db, { app } from '../../base'
 import { useHistory } from 'react-router'
 import { useContext } from 'react/cjs/react.development'
 import { AuthContext } from '../Middlewares/AuthMiddleware'
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
+import { addDoc, collection } from '@firebase/firestore'
+
+
 
 export default function AgregarObjeto() {
   let history = useHistory()
+  let storage = getStorage(app);
+
+  ref(storage);
 
   const { currentUser } = useContext(AuthContext)
   const et = useRef(null)
@@ -29,6 +35,14 @@ export default function AgregarObjeto() {
     }))
   }
 
+  const handleFile = (e) => {
+    const archivo = e.target.files[0]
+    setdatos((prevState) => ({
+      ...prevState,
+      imagen: archivo,
+    }))
+  }
+
   useEffect(() => {
     if (enviar) {
       reportar()
@@ -37,6 +51,7 @@ export default function AgregarObjeto() {
   }, [enviar])
 
   const reportar = async () => {
+
     const docRef = await addDoc(collection(db, 'objetos'), datos)
     if (docRef) {
       alert('Objeto agregado correctamente')
@@ -44,15 +59,21 @@ export default function AgregarObjeto() {
     }
   }
 
-  const separarEtiquetas = () => {
+  const separarEtiquetas = async () => {
+    const imageref = ref(storage, 'imagenes/' + datos.imagen.name);
+    const upFile = await uploadBytesResumable(imageref, datos.imagen);
+    const url = await getDownloadURL(upFile.ref);
+
     setdatos((prevState) => ({
       ...prevState,
       etiquetas: et.current.value.split(','),
       creado: Date.now(),
-      estado: 0
+      estado: 0,
+      imagen: url.toString()
     }))
     setenviar(true)
   }
+
 
   return (
     <div className="min-h-screen bg-gray-100 text-gray-800 antialiased py-6 flex flex-col justify-center sm:py-3">
@@ -75,13 +96,12 @@ export default function AgregarObjeto() {
               Imagen
             </label>
             <input
-              type="text"
+              type="file"
               placeholder="URL"
-              className="border w-full h-5 px-3 py-5 mt-2 hover:outline-none rounded-md focus:ring-indigo-400"
+              className=" w-full py-5 mt-2"
               id="imagen"
-              onChange={(e) => handleChange(e)}
+              onChange={(e) => handleFile(e)}
             />
-
             <label htmlFor="descripcion" className="block font-semibold">
               Descripcion
             </label>
